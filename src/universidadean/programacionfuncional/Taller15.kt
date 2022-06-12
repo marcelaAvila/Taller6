@@ -138,7 +138,7 @@ fun metodo13(municipios: IList<Municipio>, departamento: String): Double {
  * Retorne el nombre del primer municipio que inicia con J en toda la lista
  */
 fun metodo14(muns: IList<Municipio>): String {
-    TODO("Completar")
+    return muns.filter { it.nombre.startsWith("J") }.first.nombre
 }
 
 
@@ -159,7 +159,8 @@ fun metodo15(muns: IList<Municipio>): Int {
  * Obtener el nombre de todos los productos cuyo código es par
  */
 fun metodo1(productos: IList<Producto>): IList<String> {
-    TODO("Completar")
+    return productos.filter { it.codigo%2 == 0 }.map { it.nombre }
+
 }
 
 /**
@@ -167,7 +168,8 @@ fun metodo1(productos: IList<Producto>): IList<String> {
  * cuyo código se pasa como parámetro
  */
 fun metodo2(productos: IList<Producto>, codProducto: Int): Int {
-    TODO("Completar")
+    val valor = productos.filter { it.codigo == codProducto }.map { it.precio }.first
+    return productos.filter { it.precio < valor }.count()
 }
 
 /**
@@ -177,7 +179,7 @@ fun metodo2(productos: IList<Producto>, codProducto: Int): Int {
  *
  */
 fun metodo3(productos: IList<Producto>, cantidadMinima: Int): IList<Int> {
-    TODO("Completar")
+    return productos.filter { it.cantidad > cantidadMinima && it.precio in 1000 .. 10000 }.map { it.codigo }
 }
 
 /**
@@ -186,7 +188,7 @@ fun metodo3(productos: IList<Producto>, cantidadMinima: Int): IList<Int> {
  * inventario de la lista es superior al millón de pesos o no.
  */
 fun metodo4(prods: IList<Producto>): Boolean {
-    TODO("Completar")
+    return prods.map { it.precio * it.cantidad }.sum() > 1000000
 }
 
 /**
@@ -194,7 +196,9 @@ fun metodo4(prods: IList<Producto>): Boolean {
  * esté por debajo del promedio de precio de todos los productos de la lista
  */
 fun metodo5(prods: IList<Producto>): Double {
-    TODO("Completar")
+    val promedio = prods.map { it.precio }.sum()/prods.count()
+    val lista = prods.filter { it.precio<promedio }
+    return lista.map { it.cantidad }.sum()/lista.count().toDouble()
 }
 
 //-------------------------------------------------------------------
@@ -202,11 +206,12 @@ fun metodo5(prods: IList<Producto>): Double {
 //-------------------------------------------------------------------
 
 fun metodo16(rects: IList<Rectangulo>): Int {
-    TODO("¿Cuántos rectángulos de la lista son cuadrados?")
+    return rects.filter { it.altura == it.base }.count()
 }
 
 fun metodo17(rects: IList<Rectangulo>): Double {
-    TODO("Promedio del área de los rectangulos cuya base es inferior a su altura")
+    val menor = rects.filter { it.base < it.altura }
+    return menor.map { it.base*it.altura }.sum()/menor.count()
 }
 
 fun metodo18(rects: IList<Rectangulo>): Rectangulo {
