@@ -148,7 +148,7 @@ fun metodo14(muns: IList<Municipio>): String {
  * urbana
  */
 fun metodo15(muns: IList<Municipio>): Int {
-    TODO("Completar")
+    return muns.filter { it.poblacionRural > it.poblacionUrbana && it.codigo in 1000 ..9999 }.count()
 }
 
 //-------------------------------------------------------------------
@@ -228,14 +228,34 @@ fun metodo19(rects: IList<Rectangulo>, areaMin: Double): IList<Double> {
  * la suma de los cuadrados de los otros dos lados
  */
 fun esRectangulo(t: Triangulo): Boolean {
-    TODO("Retorna true si t es triangulo rectangulo")
+    var result = 0.0
+    var isRectangulo = false
+
+    if (t.lado1> t.lado2 && t.lado1 > t.lado3){
+        result = Math.sqrt(Math.pow(t.lado2,2.0)+Math.pow(t.lado3,2.0))
+        isRectangulo = result == t.lado1
+    }else if(t.lado2 > t.lado1 && t.lado2 > t.lado3){
+        result = Math.sqrt(Math.pow(t.lado1,2.0) + Math.pow(t.lado3,2.0))
+        isRectangulo = result == t.lado2
+    }else{
+        result = Math.sqrt(Math.pow(t.lado1,2.0) + Math.pow(t.lado2,2.0))
+        isRectangulo = result == t.lado3
+    }
+
+    return isRectangulo
+
+
+
 }
 
 fun areaTriangulo(t: Triangulo): Double {
-    TODO("Hallar el área del triángulo a partir de la fórmula de Herón")
+    var s = (t.lado1+t.lado2+t.lado3)/2
+    return Math.sqrt(s*(s-t.lado1)*(s-t.lado2)*(s-t.lado3))
 }
 
 fun metodo20(triangulos: IList<Triangulo>): IList<Double> {
+    var list = triangulos.filter { esRectangulo(it) }
+    return list.map { areaTriangulo(it) }
     TODO("Lista de áreas de aquellos triangulos rectangulos de la lista")
 }
 
